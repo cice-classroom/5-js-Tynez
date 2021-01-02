@@ -1,8 +1,8 @@
-import { customElement, property, LitElement, html, css } from 'lit-element';
+import { customElement, property, LitElement, html, css } from 'lit-element'
 
 @customElement('app-root')
 export class AppRoot extends LitElement {
-  @property() message = 'Learn LitElement';
+  @property() message = 'Learn LitElement'
 
   static get styles() {
     return css`
@@ -22,7 +22,7 @@ export class AppRoot extends LitElement {
       .link {
         color: white;
       }
-    `;
+    `
   }
 
   render() {
@@ -39,6 +39,6 @@ export class AppRoot extends LitElement {
           ${this.message}
         </a>
       </div>
-    `;
+    `
   }
 }

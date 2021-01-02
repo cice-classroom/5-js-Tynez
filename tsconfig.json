@@ -15,6 +15,9 @@
     "emitDecoratorMetadata": true,
     /* Additional Options */
     "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,

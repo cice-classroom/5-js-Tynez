@@ -24,4 +24,18 @@ describe('Engine', () => {
       [null, null, null],
     ])
   })
+
+  it('should alternate players', () => {
+    const engine = new Engine()
+    engine.play(0, 1)
+    engine.play(0, 0)
+
+    const actual = engine.board()
+
+    expect(actual).toEqual([
+      ['x', 'o', null],
+      [null, null, null],
+      [null, null, null],
+    ])
+  })
 })

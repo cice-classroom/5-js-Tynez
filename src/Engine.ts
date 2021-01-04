@@ -17,12 +17,11 @@ export class Engine {
 
   play(row: number, column: number) {
     if (row <= this.#gameStatus.length && column <= this.#gameStatus[row].length) {
-      let round = this.getActualRound()
-      this.#gameStatus[row][column] = round % 2 === 0 ? 'o' : 'x'
+      this.#gameStatus[row][column] = this.getActualRound() % 2 === 0 ? 'x' : 'o'
     }
   }
 
   getActualRound(): number {
-    return this.#gameStatus.flat().filter(element => element !== null).length
+    return this.#gameStatus.flat().filter(element => element !== null).length + 1
   }
 }

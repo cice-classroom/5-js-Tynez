@@ -53,4 +53,17 @@ describe('Engine', () => {
       [null, null, null],
     ])
   })
+
+  it('should ignore it if the movement is out of range', () => {
+    const engine = new Engine()
+    engine.play(5, 1)
+
+    const actual = engine.board()
+
+    expect(actual).toEqual([
+      [null, null, null],
+      [null, null, null],
+      [null, null, null],
+    ])
+  })
 })

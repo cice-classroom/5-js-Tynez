@@ -1,10 +1,10 @@
-type PlayerSelection = null | 'x' | 'o'
+type PlayerMark = null | 'x' | 'o'
 
 export class Engine {
-  #gameStatus: PlayerSelection[][]
+  private gameStatus: PlayerMark[][]
 
   constructor() {
-    this.#gameStatus = [
+    this.gameStatus = [
       [null, null, null],
       [null, null, null],
       [null, null, null],
@@ -12,16 +12,20 @@ export class Engine {
   }
 
   board() {
-    return this.#gameStatus
+    return this.gameStatus
   }
 
   play(row: number, column: number) {
-    if (row < 3 && column < 3 && this.#gameStatus[row][column] === null) {
-      this.#gameStatus[row][column] = this.getActualRound() % 2 === 0 ? 'x' : 'o'
+    if (row < 3 && column < 3 && this.gameStatus[row][column] === null) {
+      this.gameStatus[row][column] = this.getNextPlayerMark()
     }
   }
 
-  private getActualRound(): number {
-    return this.#gameStatus.flat().filter(element => element !== null).length + 1
+  private getNextPlayerMark(): PlayerMark {
+    return this.getFreeSpaces() % 2 === 0 ? 'x' : 'o'
+  }
+
+  private getFreeSpaces(): number {
+    return this.gameStatus.flat().filter(element => element === null).length
   }
 }

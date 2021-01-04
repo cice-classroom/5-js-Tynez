@@ -38,4 +38,19 @@ describe('Engine', () => {
       [null, null, null],
     ])
   })
+
+  it('should do nothing if a player repeat a movement already done', () => {
+    const engine = new Engine()
+    engine.play(0, 1)
+    engine.play(0, 1)
+    engine.play(0, 1)
+
+    const actual = engine.board()
+
+    expect(actual).toEqual([
+      [null, 'o', null],
+      [null, null, null],
+      [null, null, null],
+    ])
+  })
 })

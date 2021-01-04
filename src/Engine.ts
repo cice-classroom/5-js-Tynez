@@ -16,12 +16,12 @@ export class Engine {
   }
 
   play(row: number, column: number) {
-    if (row <= this.#gameStatus.length && column <= this.#gameStatus[row].length) {
+    if (row < 3 && column < 3 && this.#gameStatus[row][column] === null) {
       this.#gameStatus[row][column] = this.getActualRound() % 2 === 0 ? 'x' : 'o'
     }
   }
 
-  getActualRound(): number {
+  private getActualRound(): number {
     return this.#gameStatus.flat().filter(element => element !== null).length + 1
   }
 }

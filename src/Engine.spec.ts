@@ -66,4 +66,44 @@ describe('Engine', () => {
       [null, null, null],
     ])
   })
+
+  it('should return the first player as winner', () => {
+    const engine = new Engine()
+    engine.play(0, 0)
+    engine.play(1, 0)
+    engine.play(0, 1)
+    engine.play(2, 0)
+    engine.play(0, 2)
+
+    const actual = engine.getTheWinner()
+
+    expect(actual).toBe('First player is the winner')
+  })
+
+  it('should return the second player as winner', () => {
+    const engine = new Engine()
+    engine.play(0, 0)
+    engine.play(1, 0)
+    engine.play(2, 1)
+    engine.play(1, 1)
+    engine.play(0, 2)
+    engine.play(1, 2)
+
+    const actual = engine.getTheWinner()
+
+    expect(actual).toBe('Second player is the winner')
+  })
+
+  it('should not find winner', () => {
+    const engine = new Engine()
+    engine.play(0, 0)
+    engine.play(1, 0)
+    engine.play(2, 1)
+    engine.play(1, 1)
+    engine.play(0, 2)
+
+    const actual = engine.getTheWinner()
+
+    expect(actual).toBe(`It's a draw!`)
+  })
 })

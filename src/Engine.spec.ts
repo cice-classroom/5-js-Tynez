@@ -106,4 +106,22 @@ describe('Engine', () => {
 
     expect(actual).toBe(null)
   })
+
+  it('should reset the match', () => {
+    const engine = new Engine()
+    engine.play(0, 0)
+    engine.play(1, 0)
+    engine.play(2, 1)
+    engine.play(1, 1)
+    engine.play(0, 2)
+    engine.reset()
+
+    const actual = engine.board()
+
+    expect(actual).toEqual([
+      [null, null, null],
+      [null, null, null],
+      [null, null, null],
+    ])
+  })
 })

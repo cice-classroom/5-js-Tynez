@@ -1,7 +1,7 @@
 type PlayerToken = null | 'x' | 'o'
 
 export class Engine {
-  private readonly gameStatus: PlayerToken[][]
+  private gameStatus: PlayerToken[][]
 
   constructor() {
     this.gameStatus = [
@@ -37,6 +37,14 @@ export class Engine {
     }
 
     return null
+  }
+
+  reset() {
+    this.gameStatus = [
+      [null, null, null],
+      [null, null, null],
+      [null, null, null],
+    ]
   }
 
   private getNextPlayerMark(): PlayerToken {

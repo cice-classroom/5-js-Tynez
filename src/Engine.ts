@@ -1,9 +1,7 @@
-type PlayerMark = null | 'x' | 'o'
+type PlayerToken = null | 'x' | 'o'
 
 export class Engine {
-  private readonly gameStatus: PlayerMark[][]
-  private firstPlayerName: String = 'First player'
-  private secondPlayerName: String = 'Second player'
+  private readonly gameStatus: PlayerToken[][]
 
   constructor() {
     this.gameStatus = [
@@ -29,19 +27,19 @@ export class Engine {
     }
   }
 
-  getTheWinner(): string {
+  getTheWinner(): PlayerToken {
     if (this.checkVictory('o')) {
-      return `${this.firstPlayerName} is the winner`
+      return 'o'
     }
 
     if (this.checkVictory('x')) {
-      return `${this.secondPlayerName} is the winner`
+      return 'x'
     }
 
-    return `It's a draw!`
+    return null
   }
 
-  private getNextPlayerMark(): PlayerMark {
+  private getNextPlayerMark(): PlayerToken {
     return this.getFreeSpaces() % 2 === 0 ? 'x' : 'o'
   }
 
@@ -49,8 +47,8 @@ export class Engine {
     return this.gameStatus.flat().filter(element => element === null).length
   }
 
-  private checkVictory(playerMark: PlayerMark): boolean {
-    const validCombinations: PlayerMark[][] = [
+  private checkVictory(playerMark: PlayerToken): boolean {
+    const validCombinations: PlayerToken[][] = [
       ...this.gameStatus,
       [this.gameStatus[0][0], this.gameStatus[1][0], this.gameStatus[2][0]],
       [this.gameStatus[0][1], this.gameStatus[1][1], this.gameStatus[2][1]],

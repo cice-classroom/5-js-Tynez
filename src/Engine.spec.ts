@@ -77,7 +77,7 @@ describe('Engine', () => {
 
     const actual = engine.getTheWinner()
 
-    expect(actual).toBe('First player is the winner')
+    expect(actual).toBe('o')
   })
 
   it('should return the second player as winner', () => {
@@ -91,7 +91,7 @@ describe('Engine', () => {
 
     const actual = engine.getTheWinner()
 
-    expect(actual).toBe('Second player is the winner')
+    expect(actual).toBe('x')
   })
 
   it('should not find winner', () => {
@@ -104,6 +104,6 @@ describe('Engine', () => {
 
     const actual = engine.getTheWinner()
 
-    expect(actual).toBe(`It's a draw!`)
+    expect(actual).toBe(null)
   })
 })

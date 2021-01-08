@@ -3,12 +3,23 @@ type PlayerToken = null | 'x' | 'o'
 export class Engine {
   private gameStatus: PlayerToken[][]
 
+  scoreBoard: {
+    firstPlayer: number
+    secondPlayer: number
+    draw: number
+  }
+
   constructor() {
     this.gameStatus = [
       [null, null, null],
       [null, null, null],
       [null, null, null],
     ]
+    this.scoreBoard = {
+      firstPlayer: 0,
+      secondPlayer: 0,
+      draw: 0,
+    }
   }
 
   board() {
@@ -17,26 +28,28 @@ export class Engine {
 
   play(row: number, column: number) {
     if (
-      !this.checkVictory('o') &&
-      !this.checkVictory('x') &&
+      !this.isFirstPlayerTheWinner &&
+      !this.isSecondPlayerTheWinner &&
+      this.getFreeSpaces() > 0 &&
       row < 3 &&
       column < 3 &&
       this.gameStatus[row][column] === null
     ) {
       this.gameStatus[row][column] = this.getNextPlayerMark()
     }
+    this.updateScore()
   }
 
-  getTheWinner(): PlayerToken {
-    if (this.checkVictory('o')) {
-      return 'o'
+  updateScore() {
+    if (this.isFirstPlayerTheWinner) {
+      this.scoreBoard.firstPlayer++
     }
-
-    if (this.checkVictory('x')) {
-      return 'x'
+    if (this.isSecondPlayerTheWinner) {
+      this.scoreBoard.secondPlayer++
     }
-
-    return null
+    if (this.isDraw) {
+      this.scoreBoard.draw++
+    }
   }
 
   reset() {
@@ -45,6 +58,20 @@ export class Engine {
       [null, null, null],
       [null, null, null],
     ]
+  }
+
+  get isFirstPlayerTheWinner() {
+    return this.checkVictory('o')
+  }
+
+  get isSecondPlayerTheWinner() {
+    return this.checkVictory('x')
+  }
+
+  get isDraw() {
+    return (
+      !this.isFirstPlayerTheWinner && !this.isFirstPlayerTheWinner && this.getFreeSpaces() === 0
+    )
   }
 
   private getNextPlayerMark(): PlayerToken {

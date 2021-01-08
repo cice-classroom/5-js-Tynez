@@ -75,9 +75,9 @@ describe('Engine', () => {
     engine.play(2, 0)
     engine.play(0, 2)
 
-    const actual = engine.getTheWinner()
+    const actual = engine.isFirstPlayerTheWinner
 
-    expect(actual).toBe('o')
+    expect(actual).toBe(true)
   })
 
   it('should return the second player as winner', () => {
@@ -89,22 +89,26 @@ describe('Engine', () => {
     engine.play(0, 2)
     engine.play(1, 2)
 
-    const actual = engine.getTheWinner()
+    const actual = engine.isSecondPlayerTheWinner
 
-    expect(actual).toBe('x')
+    expect(actual).toBe(true)
   })
 
-  it('should not find winner', () => {
+  it('should not find winner after all movement', () => {
     const engine = new Engine()
-    engine.play(0, 0)
-    engine.play(1, 0)
-    engine.play(2, 1)
     engine.play(1, 1)
+    engine.play(0, 0)
+    engine.play(0, 1)
+    engine.play(2, 1)
+    engine.play(2, 0)
     engine.play(0, 2)
+    engine.play(1, 0)
+    engine.play(1, 2)
+    engine.play(2, 2)
 
-    const actual = engine.getTheWinner()
+    const actual = engine.isDraw
 
-    expect(actual).toBe(null)
+    expect(actual).toBe(true)
   })
 
   it('should reset the match', () => {

@@ -1,3 +1,4 @@
 import './app-root'
 import './tictactoe'
-import './tictactoe-square'
+import './board'
+import './square'

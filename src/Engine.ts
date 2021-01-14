@@ -1,5 +1,3 @@
-type PlayerToken = null | 'x' | 'o'
-
 export class Engine {
   private gameStatus: PlayerToken[][]
 

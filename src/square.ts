@@ -1,11 +1,12 @@
 import { css, customElement, html, LitElement, property } from 'lit-element'
 
-type PlayerToken = null | 'x' | 'o'
-
-@customElement('app-tictactoe-square')
-export class TicTacToeSquare extends LitElement {
+@customElement('app-board-square')
+export class BoardSquare extends LitElement {
   @property()
   owner!: PlayerToken
+
+  @property()
+  position!: { row: number; column: number }
 
   static get styles() {
     return css`
@@ -17,10 +18,16 @@ export class TicTacToeSquare extends LitElement {
         display: block;
         padding-bottom: 100%;
       }
+      .player-o {
+        background-color: red;
+      }
+      .player-x {
+        background-color: green;
+      }
     `
   }
 
   render() {
-    return html`<div class="${this.owner}"></div>`
+    return html`<div class="${this.owner ?? 'empty'}"></div>`
   }
 }

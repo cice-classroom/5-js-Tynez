@@ -28,19 +28,7 @@ export class TicTacToe extends LitElement {
         <h3>Player 1: 0</h3>
         <h3>Player 2: 0</h3>
         <h3>Draws: 0</h3>
-        <div class="board">
-          ${this.game
-            .board()
-            .flat()
-            .map(
-              (element, key) =>
-                html` <app-tictactoe-square
-                  row="${Math.floor(key / 3)}"
-                  col="${key % 3}"
-                  owner="${element}"
-                ></app-tictactoe-square>`,
-            )}
-        </div>
+        <app-board .board="${this.game.board()}"></app-board>
       </div>
     `
   }

@@ -1,3 +1,5 @@
+import type { PlayerToken } from './types'
+
 export class Engine {
   private gameStatus: PlayerToken[][]
 

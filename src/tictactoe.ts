@@ -1,9 +1,13 @@
-import { customElement, LitElement, html, css } from 'lit-element'
+import { customElement, LitElement, html, css, property } from 'lit-element'
 import { Engine } from './Engine'
+import type { Movement } from './types'
 
 @customElement('app-tictactoe')
 export class TicTacToe extends LitElement {
   game = new Engine()
+
+  @property()
+  board = [...this.game.board()]
 
   static get styles() {
     return css`
@@ -20,6 +24,10 @@ export class TicTacToe extends LitElement {
       }
     `
   }
+  private play(event: CustomEvent<Movement>) {
+    this.game.play(event.detail.row, event.detail.column)
+    this.board = [...this.game.board()]
+  }
 
   render() {
     return html`
@@ -28,7 +36,7 @@ export class TicTacToe extends LitElement {
         <h3>Player 1: 0</h3>
         <h3>Player 2: 0</h3>
         <h3>Draws: 0</h3>
-        <app-board .board="${this.game.board()}"></app-board>
+        <app-board .board="${this.board}" @on-choose-square="${this.play}"></app-board>
       </div>
     `
   }

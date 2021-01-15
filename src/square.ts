@@ -1,4 +1,5 @@
 import { css, customElement, html, LitElement, property } from 'lit-element'
+import type { Movement, PlayerToken } from './types'
 
 @customElement('app-board-square')
 export class BoardSquare extends LitElement {
@@ -27,7 +28,25 @@ export class BoardSquare extends LitElement {
     `
   }
 
+  chooseSquare() {
+    const customEvent = new CustomEvent<Movement>('on-choose-square', {
+      bubbles: true,
+      composed: true,
+      detail: {
+        row: this.position.row,
+        column: this.position.column,
+      },
+    })
+
+    this.dispatchEvent(customEvent)
+  }
+
   render() {
-    return html`<div class="${this.owner ?? 'empty'}"></div>`
+    return html`<div
+      @click="${() => {
+        this.chooseSquare()
+      }}"
+      class="${this.owner ?? 'empty'}"
+    ></div>`
   }
 }

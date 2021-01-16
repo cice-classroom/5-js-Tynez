@@ -27,14 +27,10 @@ export class Engine {
   }
 
   play(row: number, column: number) {
-    if (
-      !this.isFirstPlayerTheWinner &&
-      !this.isSecondPlayerTheWinner &&
-      this.getFreeSpaces() > 0 &&
-      row < 3 &&
-      column < 3 &&
-      this.gameStatus[row][column] === null
-    ) {
+    const isValidPosition = row < 3 && column < 3
+    const isFreeSpace = this.gameStatus[row][column] === null
+
+    if (!this.isGameOver && isValidPosition && isFreeSpace) {
       this.gameStatus[row][column] = this.getNextPlayerMark()
     }
     this.updateScore()
@@ -72,6 +68,10 @@ export class Engine {
     return (
       !this.isFirstPlayerTheWinner && !this.isFirstPlayerTheWinner && this.getFreeSpaces() === 0
     )
+  }
+
+  get isGameOver() {
+    return this.isFirstPlayerTheWinner || this.isSecondPlayerTheWinner || this.isDraw
   }
 
   private getNextPlayerMark(): PlayerToken {

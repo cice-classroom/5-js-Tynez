@@ -128,4 +128,34 @@ describe('Engine', () => {
       [null, null, null],
     ])
   })
+
+  it('should return that is game over', () => {
+    const engine = new Engine()
+    engine.play(1, 1)
+    engine.play(0, 0)
+    engine.play(0, 1)
+    engine.play(2, 1)
+    engine.play(2, 0)
+    engine.play(0, 2)
+    engine.play(1, 0)
+    engine.play(1, 2)
+    engine.play(2, 2)
+
+    const actual = engine.isGameOver
+
+    expect(actual).toBe(true)
+  })
+
+  it('should return that the game can go on', () => {
+    const engine = new Engine()
+    engine.play(1, 1)
+    engine.play(0, 0)
+    engine.play(0, 1)
+    engine.play(2, 1)
+    engine.play(2, 0)
+
+    const actual = engine.isGameOver
+
+    expect(actual).toBe(false)
+  })
 })

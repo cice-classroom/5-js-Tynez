@@ -25,7 +25,17 @@ export class TicTacToe extends LitElement {
     `
   }
   private play(event: CustomEvent<Movement>) {
-    this.game.play(event.detail.row, event.detail.column)
+    const isGameNotEnded =
+      !this.game.isFirstPlayerTheWinner && !this.game.isSecondPlayerTheWinner && !this.game.isDraw
+
+    if (isGameNotEnded) {
+      this.game.play(event.detail.row, event.detail.column)
+      this.board = [...this.game.board()]
+    }
+  }
+
+  private newGame() {
+    this.game.reset()
     this.board = [...this.game.board()]
   }
 
@@ -33,10 +43,11 @@ export class TicTacToe extends LitElement {
     return html`
       <div>
         <h1>Tic Tac Toe</h1>
-        <h3>Player 1: 0</h3>
-        <h3>Player 2: 0</h3>
-        <h3>Draws: 0</h3>
+        <h3>Player 1: ${this.game.scoreBoard.firstPlayer}</h3>
+        <h3>Player 2: ${this.game.scoreBoard.secondPlayer}</h3>
+        <h3>Draws: ${this.game.scoreBoard.draw}</h3>
         <app-board .board="${this.board}" @on-choose-square="${this.play}"></app-board>
+        <button @click="${() => this.newGame()}">Reset</button>
       </div>
     `
   }

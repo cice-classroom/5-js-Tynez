@@ -28,11 +28,11 @@ export class Engine {
     }
   }
 
-  board() {
+  board(): PlayerToken[] {
     return this.gameStatus
   }
 
-  play(position: number) {
+  play(position: number): void {
     const isValidPosition = position < this.gameStatus.length
     const isFreeSpace = this.gameStatus[position] === null
     if (!this.isGameOver && isValidPosition && isFreeSpace) {
@@ -41,7 +41,7 @@ export class Engine {
     this.updateScore()
   }
 
-  updateScore() {
+  updateScore(): void {
     if (this.isFirstPlayerTheWinner) {
       this.scoreBoard.firstPlayer++
     }
@@ -53,7 +53,7 @@ export class Engine {
     }
   }
 
-  reset() {
+  reset(): void {
     this.gameStatus = [null, null, null, null, null, null, null, null, null]
   }
 
@@ -71,11 +71,11 @@ export class Engine {
     )
   }
 
-  get isGameOver() {
+  get isGameOver(): boolean {
     return this.isFirstPlayerTheWinner || this.isSecondPlayerTheWinner || this.isDraw
   }
 
-  get getWinnerLine() {
+  get getWinnerLine(): number[] {
     if (this.isFirstPlayerTheWinner) {
       return this.checkVictory('o')[0]
     }

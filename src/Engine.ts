@@ -1,7 +1,17 @@
-import type { PlayerToken } from './types'
+import type { PlayerToken } from './tictactoe'
 
 export class Engine {
-  private gameStatus: PlayerToken[][]
+  private gameStatus: PlayerToken[]
+  private winningCondition: number[][] = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ]
 
   scoreBoard: {
     firstPlayer: number
@@ -10,11 +20,7 @@ export class Engine {
   }
 
   constructor() {
-    this.gameStatus = [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ]
+    this.gameStatus = [null, null, null, null, null, null, null, null, null]
     this.scoreBoard = {
       firstPlayer: 0,
       secondPlayer: 0,
@@ -26,12 +32,11 @@ export class Engine {
     return this.gameStatus
   }
 
-  play(row: number, column: number) {
-    const isValidPosition = row < 3 && column < 3
-    const isFreeSpace = this.gameStatus[row][column] === null
-
+  play(position: number) {
+    const isValidPosition = position < this.gameStatus.length
+    const isFreeSpace = this.gameStatus[position] === null
     if (!this.isGameOver && isValidPosition && isFreeSpace) {
-      this.gameStatus[row][column] = this.getNextPlayerMark()
+      this.gameStatus[position] = this.getNextPlayerMark()
     }
     this.updateScore()
   }
@@ -49,22 +54,18 @@ export class Engine {
   }
 
   reset() {
-    this.gameStatus = [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ]
+    this.gameStatus = [null, null, null, null, null, null, null, null, null]
   }
 
-  get isFirstPlayerTheWinner() {
-    return this.checkVictory('o')
+  get isFirstPlayerTheWinner(): boolean {
+    return this.checkVictory('o').length > 0
   }
 
-  get isSecondPlayerTheWinner() {
-    return this.checkVictory('x')
+  get isSecondPlayerTheWinner(): boolean {
+    return this.checkVictory('x').length > 0
   }
 
-  get isDraw() {
+  get isDraw(): boolean {
     return (
       !this.isFirstPlayerTheWinner && !this.isFirstPlayerTheWinner && this.getFreeSpaces() === 0
     )
@@ -74,24 +75,28 @@ export class Engine {
     return this.isFirstPlayerTheWinner || this.isSecondPlayerTheWinner || this.isDraw
   }
 
+  get getWinnerLine() {
+    if (this.isFirstPlayerTheWinner) {
+      return this.checkVictory('o')[0]
+    }
+    if (this.isSecondPlayerTheWinner) {
+      return this.checkVictory('x')[0]
+    }
+    return []
+  }
+
   private getNextPlayerMark(): PlayerToken {
     return this.getFreeSpaces() % 2 === 0 ? 'x' : 'o'
   }
 
   private getFreeSpaces(): number {
-    return this.gameStatus.flat().filter(element => element === null).length
+    return this.gameStatus.filter(element => element === null).length
   }
 
-  private checkVictory(playerMark: PlayerToken): boolean {
-    const validCombinations: PlayerToken[][] = [
-      ...this.gameStatus,
-      [this.gameStatus[0][0], this.gameStatus[1][0], this.gameStatus[2][0]],
-      [this.gameStatus[0][1], this.gameStatus[1][1], this.gameStatus[2][1]],
-      [this.gameStatus[0][2], this.gameStatus[1][2], this.gameStatus[2][2]],
-      [this.gameStatus[0][0], this.gameStatus[1][1], this.gameStatus[2][2]],
-      [this.gameStatus[0][2], this.gameStatus[1][1], this.gameStatus[2][0]],
-    ]
-
-    return validCombinations.filter(row => row.every(element => element === playerMark)).length > 0
+  private checkVictory(playerMark: PlayerToken): number[][] {
+    const winnerCombinations = this.winningCondition.filter(row =>
+      row.every(element => this.gameStatus[element] === playerMark),
+    )
+    return winnerCombinations
   }
 }

@@ -134,4 +134,18 @@ describe('Engine', () => {
 
     expect(actual).toBe(false)
   })
+
+  it('should return the winner line position', () => {
+    const engine = new Engine()
+    engine.play(0)
+    engine.play(3)
+    engine.play(1)
+    engine.play(4)
+    engine.play(6)
+    engine.play(5)
+
+    const actual = engine.getWinnerLine
+
+    expect(actual).toEqual([3, 4, 5])
+  })
 })

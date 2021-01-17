@@ -135,7 +135,20 @@ describe('Engine', () => {
     expect(actual).toBe(false)
   })
 
-  it('should return the winner line position', () => {
+  it('should return the winner line position when first player wins', () => {
+    const engine = new Engine()
+    engine.play(0)
+    engine.play(3)
+    engine.play(1)
+    engine.play(6)
+    engine.play(2)
+
+    const actual = engine.getWinnerLine
+
+    expect(actual).toEqual([0, 1, 2])
+  })
+
+  it('should return the winner line when second player wins', () => {
     const engine = new Engine()
     engine.play(0)
     engine.play(3)
@@ -147,5 +160,13 @@ describe('Engine', () => {
     const actual = engine.getWinnerLine
 
     expect(actual).toEqual([3, 4, 5])
+  })
+
+  it('should return an empty line if there is no winner', () => {
+    const engine = new Engine()
+
+    const actual = engine.getWinnerLine
+
+    expect(actual).toEqual([])
   })
 })

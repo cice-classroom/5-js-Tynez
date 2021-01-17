@@ -33,7 +33,7 @@ export class AppBoard extends LitElement {
       #board::after {
         content: '';
         background-color: var(--foreground-color);
-        border-radius: var(-circle);
+        border-radius: var(--circle);
         position: absolute;
         width: 30%;
         height: 30%;
@@ -84,7 +84,7 @@ export class AppBoard extends LitElement {
       #board > .board--first-player-token .token::before {
         content: '';
         position: absolute;
-        border-radius: var(-circle);
+        border-radius: var(--circle);
         background-color: var(--foreground-color);
         transition: all 0.2s ease-out;
       }

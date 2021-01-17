@@ -1,4 +1,4 @@
-import type { PlayerToken } from './tictactoe'
+import type { PlayerToken, ScoreBoard } from './tictactoe'
 
 export class Engine {
   private gameStatus: PlayerToken[]
@@ -13,11 +13,7 @@ export class Engine {
     [2, 4, 6],
   ]
 
-  scoreBoard: {
-    firstPlayer: number
-    secondPlayer: number
-    draw: number
-  }
+  scoreBoard: ScoreBoard
 
   constructor() {
     this.gameStatus = [null, null, null, null, null, null, null, null, null]

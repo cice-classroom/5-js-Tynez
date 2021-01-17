@@ -1,0 +1,13 @@
+:root {
+  --background-color: #f0ece3;
+  --on-background-color: #596e79;
+  --foreground-color: #596e79;
+  --on-foreground-color: #f0ece3;
+
+  --disabled-color: #dfd3c3;
+
+  --container: 80%;
+  --md-spacer: 1rem;
+
+  --circle: 1000px;
+}

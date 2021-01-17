@@ -10,20 +10,41 @@ export class AppTictactoe extends LitElement {
   board = [...this.game.board()]
 
   @property()
-  winnerLine: number[] = []
+  winnerLine: number[] = this.game.getWinnerLine
 
   static get styles() {
     return css`
-      .board {
-        max-width: 500px;
-        display: grid;
-        grid-column: 3;
-        grid-row: 3;
-        grid-gap: 10px;
-        grid-template-areas:
-          'a b c'
-          'd e f'
-          'g h i';
+      h1 {
+        text-align: center;
+      }
+      #scoreboard {
+        max-width: var(--container);
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+      }
+
+      #toolbar {
+        text-align: center;
+        padding: var(--md-spacer) 0;
+      }
+
+      button {
+        background-color: var(--background-color);
+        color: var(--on-background-color);
+        border: 3px solid var(--on-background-color);
+        padding: 0.5rem 1.5rem;
+        transition: all 0.2s ease-out;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-size: 1rem;
+        line-height: 1rem;
+        font-weight: bold;
+      }
+
+      button:hover {
+        background-color: var(--foreground-color);
+        color: var(--on-foreground-color);
       }
     `
   }
@@ -45,15 +66,19 @@ export class AppTictactoe extends LitElement {
     return html`
       <div>
         <h1>Tic Tac Toe</h1>
-        <h3>Player 1: ${this.game.scoreBoard.firstPlayer}</h3>
-        <h3>Player 2: ${this.game.scoreBoard.secondPlayer}</h3>
-        <h3>Draws: ${this.game.scoreBoard.draw}</h3>
+        <section id="scoreboard">
+          <h3>Player 1: ${this.game.scoreBoard.firstPlayer}</h3>
+          <h3>Player 2: ${this.game.scoreBoard.secondPlayer}</h3>
+          <h3>Draws: ${this.game.scoreBoard.draw}</h3>
+        </section>
         <app-board
           .board="${this.board}"
           .winnerLine="${this.winnerLine}"
           @on-choose-square="${this.play}"
         ></app-board>
-        <button @click="${() => this.newGame()}">Reset</button>
+        <section id="toolbar">
+          <button @click="${() => this.newGame()}">Reset</button>
+        </section>
       </div>
     `
   }

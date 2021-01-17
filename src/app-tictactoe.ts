@@ -17,12 +17,6 @@ export class AppTictactoe extends LitElement {
       h1 {
         text-align: center;
       }
-      #scoreboard {
-        max-width: var(--container);
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-around;
-      }
 
       #toolbar {
         text-align: center;
@@ -66,11 +60,7 @@ export class AppTictactoe extends LitElement {
     return html`
       <div>
         <h1>Tic Tac Toe</h1>
-        <section id="scoreboard">
-          <h3>Player 1: ${this.game.scoreBoard.firstPlayer}</h3>
-          <h3>Player 2: ${this.game.scoreBoard.secondPlayer}</h3>
-          <h3>Draws: ${this.game.scoreBoard.draw}</h3>
-        </section>
+        <app-scoreboard .actualScoreBoard="${{ ...this.game.scoreBoard }}"></app-scoreboard>
         <app-board
           .board="${this.board}"
           .winnerLine="${this.winnerLine}"

@@ -10,6 +10,12 @@ export class AppTictactoe extends LitElement {
   board = [...this.game.board()]
 
   @property()
+  actualWinner = {
+    firstPlayer: this.game.isFirstPlayerTheWinner,
+    secondPlayer: this.game.isSecondPlayerTheWinner,
+  }
+
+  @property()
   winnerLine: number[] = this.game.getWinnerLine
 
   static get styles() {
@@ -21,24 +27,6 @@ export class AppTictactoe extends LitElement {
       #toolbar {
         text-align: center;
         padding: var(--md-spacer) 0;
-      }
-
-      button {
-        background-color: var(--background-color);
-        color: var(--on-background-color);
-        border: 3px solid var(--on-background-color);
-        padding: 0.5rem 1.5rem;
-        transition: all 0.2s ease-out;
-        cursor: pointer;
-        text-transform: uppercase;
-        font-size: 1rem;
-        line-height: 1rem;
-        font-weight: bold;
-      }
-
-      button:hover {
-        background-color: var(--foreground-color);
-        color: var(--on-foreground-color);
       }
     `
   }
@@ -56,6 +44,16 @@ export class AppTictactoe extends LitElement {
     this.board = [...this.game.board()]
   }
 
+  private winnerMessage() {
+    if (this.game.isFirstPlayerTheWinner) {
+      return 'First player wins!'
+    }
+    if (this.game.isSecondPlayerTheWinner) {
+      return 'Second player wins!'
+    }
+    return 'It is a draw!'
+  }
+
   render() {
     return html`
       <div>
@@ -66,9 +64,11 @@ export class AppTictactoe extends LitElement {
           .winnerLine="${this.winnerLine}"
           @on-choose-square="${this.play}"
         ></app-board>
-        <section id="toolbar">
-          <button @click="${() => this.newGame()}">Reset</button>
-        </section>
+        <app-game-over
+          .isGameOver="${this.game.isGameOver}"
+          .message="${this.winnerMessage()}"
+          @on-new-game="${() => this.newGame()}"
+        ></app-game-over>
       </div>
     `
   }

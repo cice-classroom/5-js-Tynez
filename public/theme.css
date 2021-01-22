@@ -1,0 +1,16 @@
+:root {
+  --background-color: #f0ece3;
+  --on-background-color: #596e79;
+  --foreground-color: #596e79;
+  --on-foreground-color: #f0ece3;
+
+  --disabled-color: #dfd3c3;
+
+  --container: 80%;
+  --md-spacer: 1rem;
+
+  --circle: 1000px;
+
+  --shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
+    0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
